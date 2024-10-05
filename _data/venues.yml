@@ -1,9 +1,22 @@
-"AJP":
-  url: https://aapt.scitation.org/journal/ajp
-  color: "#00369f"
+"Reasoning":
+  url: 
+  color: "#DDB527"
 
-"PhysRev":
-  url: https://journals.aps.org/
+"Planning":
+  url: 
+  color: "#DDB527"
 
-"Vision":
-  color: "#009f36"
+"RL": 
+  url:
+  color: "#00369F"
+
+"Reward Model":
+  color: "#00369F"
+
+"Human-AI":
+  url: 
+  color: "#0F764B"
+
+"Dialogue":
+  url: 
+  color: "#0F764B"
