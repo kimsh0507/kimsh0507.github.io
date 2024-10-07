@@ -3,7 +3,7 @@ layout: profiles
 permalink: /people/
 title: Personal
 description: Here is a space where I share my interests and experiences!
-nav: true
+nav: false
 nav_order: 7
 
 profiles:
