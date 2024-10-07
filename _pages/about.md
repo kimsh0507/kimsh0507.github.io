@@ -20,7 +20,7 @@ social: true # includes social icons at the bottom of the page
 Hi! I am a first year M.S. student at [DLI Lab](https://diyonsei.notion.site/) advised by [Jinyoung Yeo](https://jinyeo.weebly.com/). Previously, I received B.S. in Materials Science & Engineering from Yonsei University in Aug. 2024.
 
 My recent research interests include: (i) **Reasoning and Planning** to solve long-horizon tasks and (ii) **Embodied AI** with a strong understanding of real-world dynamics.
-Additionally, I focus on offering insights by **evaluating language models (LMs) through new perspectives**.
+Additionally, I focus on **analyzing language models (LMs)** to identify limitations and room for improvement.
 The ultimate goal of my research is to design systems that enable humans to communicate and interact with AI in a trustworthy and beneficial manner.
 
 **Topics of interest**
