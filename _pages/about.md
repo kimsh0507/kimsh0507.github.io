@@ -20,7 +20,7 @@ social: true # includes social icons at the bottom of the page
 Hi! I am a first year M.S. student at [Language and AGI Lab](https://langlab.yonsei.ac.kr/) advised by [Jinyoung Yeo](https://jinyeo.weebly.com/). Previously, I received B.S. in Materials Science & Engineering from Yonsei University in Aug. 2024.
 
 I aim to build human-like intelligent systems that can autonomously learn, reason, and adapt to diverse environments. My recent research interests include: (i) **Reinforcement Learning (RL)** to solve long-horizon tasks and (ii) Developing intelligent systems that **learn through interaction with the environment**.
-Additionally, I focus on **analyzing language models (LMs)** to identify limitations and room for improvement.
+Additionally, I focus on **analyzing language models** to identify limitations and room for improvement.
 
 **Topics of interest**
 * RL for long-horison tasks: [RewardMATH](https://arxiv.org/abs/2410.01729), [Ongoing Project] 
