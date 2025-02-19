@@ -17,13 +17,12 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-Hi! I am a first year M.S. student at [DLI Lab](https://diyonsei.notion.site/) advised by [Jinyoung Yeo](https://jinyeo.weebly.com/). Previously, I received B.S. in Materials Science & Engineering from Yonsei University in Aug. 2024.
+Hi! I am a first year M.S. student at [Language and AGI Lab](https://langlab.yonsei.ac.kr/) advised by [Jinyoung Yeo](https://jinyeo.weebly.com/). Previously, I received B.S. in Materials Science & Engineering from Yonsei University in Aug. 2024.
 
-My recent research interests include: (i) **Reasoning and Planning** to solve long-horizon tasks and (ii) **Embodied AI** with a strong understanding of real-world dynamics.
+I aim to build human-like intelligent systems that can autonomously learn, reason, and adapt to diverse environments. My recent research interests include: (i) **Reinforcement Learning (RL)** to solve long-horizon tasks and (ii) Developing intelligent systems that **learn through interaction with the environment**.
 Additionally, I focus on **analyzing language models (LMs)** to identify limitations and room for improvement.
-The ultimate goal of my research is to design systems that enable humans to communicate and interact with AI in a trustworthy and beneficial manner.
 
 **Topics of interest**
-* Reasoning and Planning: [Think-and-Execute](https://arxiv.org/abs/2404.02575), [RewardMATH](https://arxiv.org/abs/2410.01729)
-* Embodied AI: 
-* Analysis of LMs: [Preference Bias](https://arxiv.org/abs/2402.13211), [Cactus](https://arxiv.org/abs/2407.03103), [RewardMATH](https://arxiv.org/abs/2410.01729)
+* RL for long-horison tasks: [RewardMATH](https://arxiv.org/abs/2410.01729), [Ongoing Project] 
+* Learning with Interaction: [World Model for Web Agent](https://arxiv.org/abs/2410.13232), [Ongoing Project] 
+* Analysis of LMs: [Preference Bias](https://arxiv.org/abs/2402.13211), [Cactus](https://arxiv.org/abs/2407.03103)

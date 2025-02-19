@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-🎊 Our [paper](https://arxiv.org/abs/2402.13211) has been selected as an <b>outstanding paper</b> at ACL 2024! 🎊
+🏆 Our [paper](https://arxiv.org/abs/2402.13211) has been selected as an <b>outstanding paper</b> at ACL 2024! 🏆
