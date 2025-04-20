@@ -131,3 +131,8 @@
   </div>
   {% include scripts/wechatModal.liquid %}
 {% endif %}
+{% if site.cv_url %}
+  <a href="{{ site.cv_url }}" title="Curriculum Vitae" target="_blank" rel="noopener">
+    <i class="fa-solid fa-file-pdf"></i>
+  </a>
+{% endif %}
