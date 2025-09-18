@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-🎉 Our "[Reward Model Evaluation](https://arxiv.org/abs/2505.12763)" and "[LLM Meets Scene Graph]()" got accepted to ACL 2025!
+🎉 Our "[Reward Model Evaluation](https://arxiv.org/abs/2505.12763)" and "[LLM Meets Scene Graph](https://arxiv.org/abs/2505.19510)" got accepted to ACL 2025!
