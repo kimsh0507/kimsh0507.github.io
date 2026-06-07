@@ -1,0 +1,136 @@
+.timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: 132px 28px minmax(0, 1fr);
+  align-items: start;
+  row-gap: 1.1rem;
+}
+
+.timeline::before {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  justify-self: center;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 0, var(--border) 18px, var(--border) calc(100% - 18px), transparent 100%);
+  content: "";
+}
+
+.timeline-item {
+  display: contents;
+}
+
+.timeline-period {
+  grid-column: 1;
+  margin: 6px 0 0;
+  color: var(--text-muted);
+  font-family: Syne, system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: right;
+}
+
+.timeline-content {
+  grid-column: 3;
+  position: relative;
+  padding: 18px 20px;
+}
+
+.timeline-node {
+  z-index: 1;
+  grid-column: 2;
+  justify-self: center;
+  margin-top: 8px;
+  width: 14px;
+  height: 14px;
+  border: 3px solid var(--bg-primary);
+  border-radius: 50%;
+}
+
+.timeline-academy .timeline-node {
+  background: var(--timeline-academy);
+}
+
+.timeline-industry .timeline-node {
+  background: var(--timeline-industry);
+}
+
+.vitae-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.vitae-role {
+  margin: 0;
+  font-family: Syne, system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.vitae-type {
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 8px;
+  color: var(--text-muted);
+  font-family: Syne, system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.timeline-academy .vitae-type {
+  color: var(--timeline-academy);
+}
+
+.timeline-industry .vitae-type {
+  color: var(--timeline-industry);
+}
+
+.vitae-institution,
+.vitae-desc {
+  margin: 0.35rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.vitae-desc {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+}
+
+@media (max-width: 640px) {
+  .timeline {
+    grid-template-columns: 22px minmax(0, 1fr);
+    row-gap: 0.9rem;
+  }
+
+  .timeline::before {
+    grid-column: 1;
+  }
+
+  .timeline-period {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .timeline-node {
+    grid-column: 1;
+    grid-row: span 2;
+    margin-top: 7px;
+  }
+
+  .timeline-content {
+    grid-column: 2;
+    padding: 16px 18px;
+  }
+
+  .vitae-heading {
+    display: grid;
+    gap: 8px;
+    justify-items: start;
+  }
+}

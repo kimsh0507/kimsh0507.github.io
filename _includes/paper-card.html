@@ -1,0 +1,67 @@
+<article class="card paper-card">
+  <div class="paper-badges">
+    {% include badge.html label=include.pub.venue variant="venue" %}
+    {% if include.pub.status == "oral" %}
+      {% include badge.html label="Oral" variant="oral" %}
+    {% elsif include.pub.status == "award" %}
+      {% assign award_label = include.pub.award_name | default: "Award" %}
+      {% include badge.html label=award_label variant="award" %}
+    {% endif %}
+  </div>
+
+  <h3 class="paper-title">{{ include.pub.title }}</h3>
+
+  <p class="paper-authors">
+    {% for author in include.pub.authors %}
+      {% assign clean_author = author | remove: "*" %}
+      {% assign is_me = false %}
+      {% if clean_author == site.data.config.my_name %}
+        {% assign is_me = true %}
+      {% endif %}
+      {% assign is_equal = false %}
+      {% if include.pub.equal_contribution contains clean_author %}
+        {% assign is_equal = true %}
+      {% endif %}
+      {% if is_me %}<strong>{{ clean_author }}{% if is_equal %}<sup>*</sup>{% endif %}</strong>{% else %}{{ clean_author }}{% if is_equal %}<sup>*</sup>{% endif %}{% endif %}{% unless forloop.last %}, {% endunless %}
+    {% endfor %}
+    {% if include.pub.equal_contribution.size > 0 %}
+      <br><span class="equal-contrib-note">* Equal contribution</span>
+    {% endif %}
+  </p>
+
+  {% assign paper_url = include.pub.paper_url | default: "" | strip %}
+  {% assign website_url = include.pub.website_url | default: "" | strip %}
+  {% assign code_url = include.pub.code_url | default: "" | strip %}
+  {% assign dataset_url = include.pub.dataset_url | default: "" | strip %}
+  {% assign has_other_links = false %}
+  {% for other in include.pub.others %}
+    {% assign other_url = other.url | default: "" | strip %}
+    {% if other_url != "" %}
+      {% assign has_other_links = true %}
+    {% endif %}
+  {% endfor %}
+  {% if paper_url != "" or website_url != "" or code_url != "" or dataset_url != "" or has_other_links %}
+  <div class="paper-links">
+    {% if paper_url == "to-appear" %}
+      <span class="link-badge link-badge--disabled">Paper (To Appear)</span>
+    {% elsif paper_url != "" %}
+      <a href="{{ paper_url }}" class="link-badge" target="_blank" rel="noopener noreferrer">Paper</a>
+    {% endif %}
+    {% if website_url != "" %}
+      <a href="{{ website_url }}" class="link-badge" target="_blank" rel="noopener noreferrer">Website</a>
+    {% endif %}
+    {% if code_url != "" %}
+      <a href="{{ code_url }}" class="link-badge" target="_blank" rel="noopener noreferrer">Code</a>
+    {% endif %}
+    {% if dataset_url != "" %}
+      <a href="{{ dataset_url }}" class="link-badge" target="_blank" rel="noopener noreferrer">Dataset</a>
+    {% endif %}
+    {% for other in include.pub.others %}
+      {% assign other_url = other.url | default: "" | strip %}
+      {% if other_url != "" %}
+        <a href="{{ other_url }}" class="link-badge" target="_blank" rel="noopener noreferrer">{{ other.title }}</a>
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% endif %}
+</article>

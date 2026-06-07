@@ -1,52 +1,39 @@
-/*******************************************************************************
- * Variables used throughout the theme.
- * To adjust anything, simply edit the variables below and rebuild the theme.
- ******************************************************************************/
+[data-theme="dark"] {
+  --bg-primary: #0e0e10;
+  --bg-secondary: #18181b;
+  --bg-tertiary: #27272a;
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #52525b;
+  --border: #27272a;
+  --accent: #7c3aed;
+  --accent-light: #a78bfa;
+  --accent-bg: #1e1030;
+  --timeline-academy: #7c3aed;
+  --timeline-industry: #059669;
+  --link: #a78bfa;
+  --link-hover: #c4b5fd;
+  --card-shadow: 0 0 0 1px #27272a;
+  --card-shadow-hover: 0 0 0 1px #7c3aed;
+  color-scheme: dark;
+}
 
-@use "sass:color";
-
-// Colors
-$red-color: #ff3636 !default;
-$red-color-dark: #b71c1c !default;
-$orange-color: #f29105 !default;
-$blue-color: #0076df !default;
-$blue-color-dark: #00369f !default;
-$cyan-color: #2698ba !default;
-$light-cyan-color: color.adjust($cyan-color, $lightness: 25%);
-$green-color: #00ab37 !default;
-$green-color-lime: #b7d12a !default;
-$green-color-dark: #009f06 !default;
-$green-color-light: #ddffdd !default;
-$green-color-bright: #11d68b !default;
-$purple-color: #b509ac !default;
-$light-purple-color: color.adjust($purple-color, $lightness: 25%);
-$pink-color: #f92080 !default;
-$pink-color-light: #ffdddd !default;
-$yellow-color: #efcc00 !default;
-
-$grey-color: #828282 !default;
-$grey-color-light: color.adjust($grey-color, $lightness: 40%);
-$grey-color-dark: #1c1c1d;
-$grey-900: #212529;
-
-$white-color: #ffffff !default;
-$black-color: #000000 !default;
-
-// Theme colors
-
-$code-bg-color-light: rgba($purple-color, 0.05);
-$code-bg-color-dark: #2c3237 !default;
-
-// Font awesome location
-$fa-font-path: "../webfonts";
-
-// Tabler icons location
-$ti-font-path: "../fonts";
-
-// Back To Top button config
-$back-to-top-z-index: 10;
-$back-to-top-bottom: 30px;
-$back-to-top-right: 30px;
-$back-to-top-diameter: 40px;
-$back-to-top-height: $back-to-top-diameter;
-$back-to-top-width: $back-to-top-diameter;
+[data-theme="light"] {
+  --bg-primary: #fafafa;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f4f4f5;
+  --text-primary: #09090b;
+  --text-secondary: #52525b;
+  --text-muted: #a1a1aa;
+  --border: #e4e4e7;
+  --accent: #7c3aed;
+  --accent-light: #6d28d9;
+  --accent-bg: #ede9fe;
+  --timeline-academy: #7c3aed;
+  --timeline-industry: #059669;
+  --link: #7c3aed;
+  --link-hover: #6d28d9;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --card-shadow-hover: 0 0 0 1px #7c3aed, 0 2px 8px rgba(124, 58, 237, 0.12);
+  color-scheme: light;
+}

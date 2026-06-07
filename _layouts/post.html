@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<article class="post-container fade-in">
+  <header class="post-header">
+    <span class="post-category">{{ page.category | capitalize }}</span>
+    <h1 class="post-title">{{ page.title }}</h1>
+    <div class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y.%m.%d" }}</time>
+      {% if page.keywords %}
+        <div class="post-keywords">
+          {% for kw in page.keywords %}
+            {% include badge.html label=kw variant="keyword" %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    {% if page.tldr %}
+      <blockquote class="post-tldr">{{ page.tldr }}</blockquote>
+    {% endif %}
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+</article>

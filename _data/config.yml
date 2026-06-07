@@ -1,0 +1,43 @@
+name: "Sunghwan Kim"
+name_en: "Sunghwan Kim"
+my_name: "Sunghwan Kim"
+position: "M.S. Student"
+affiliation: "Yonsei University"
+accent_color: "#7c3aed"
+
+research_interests:
+  - "Self-Improving Agents"
+  - "Reinforcement Learning for LLMs"
+  - "Open-ended Learning"
+
+bio: >
+  <p>
+    Hi! I am a second year M.S. student at Yonsei University advised by Jinyoung Yeo.
+    Previously, I received my B.S. in Materials Science &amp; Engineering from Yonsei University in August 2024.
+  </p>
+  <p>
+    I aim to build human-like intelligent systems that can autonomously learn, reason, and adapt to diverse environments.
+    My recent research interests include reinforcement learning for long-horizon tasks and intelligent systems that learn through interaction with their environments.
+  </p>
+
+social:
+  - label: "Google Scholar"
+    icon: "graduation-cap"
+    url: "https://scholar.google.com/citations?user=gjMbiqIAAAAJ"
+    external: true
+  - label: "GitHub"
+    icon: "github"
+    url: "https://github.com/kimsh0507"
+    external: true
+  - label: "X"
+    icon: "twitter"
+    url: "https://x.com/seonghwan_57"
+    external: true
+  - label: "CV"
+    icon: "file-text"
+    url: "/assets/img/cv.pdf"
+    external: true
+  - label: "Email"
+    icon: "mail"
+    type: "email"
+    value: "kimsh8564[at]yonsei.ac.kr"

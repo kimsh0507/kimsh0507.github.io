@@ -1,0 +1,14 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% if page.secret %}
+<meta name="robots" content="noindex, nofollow">
+{% endif %}
+<script>
+  (function() {
+    var saved = localStorage.getItem("theme");
+    var preferred = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", saved || preferred || "dark");
+  })();
+</script>
+{% seo %}
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">

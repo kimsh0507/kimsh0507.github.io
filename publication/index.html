@@ -1,0 +1,23 @@
+---
+layout: page
+title: Publications
+kicker: Publication
+description: Selected and full publication list, shown in the order defined in _data/publications.yml.
+---
+
+{% assign ordered_pubs = site.data.publications %}
+{% assign current_year = "" %}
+{% for pub in ordered_pubs %}
+  {% if pub.year != current_year %}
+    {% unless forloop.first %}
+      </section>
+    {% endunless %}
+    {% assign current_year = pub.year %}
+    <section class="year-group fade-in" aria-labelledby="year-{{ current_year }}">
+      <h2 class="year-heading" id="year-{{ current_year }}">{{ current_year }}</h2>
+  {% endif %}
+  {% include paper-card.html pub=pub %}
+  {% if forloop.last %}
+    </section>
+  {% endif %}
+{% endfor %}

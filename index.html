@@ -1,0 +1,108 @@
+---
+layout: default
+title: Home
+typewriter: true
+news_toggle: true
+---
+
+<section class="about-me fade-in" aria-label="About me">
+  <div class="about-left">
+    <h1 class="hero-name">{{ site.data.config.name }}</h1>
+    <p class="typewriter-prefix">Research:
+      <span id="typewriter">{{ site.data.config.research_interests[0] }}</span><span class="cursor" aria-hidden="true">|</span>
+    </p>
+    <div class="bio">{{ site.data.config.bio }}</div>
+  </div>
+
+  <aside class="about-right" aria-label="Profile links">
+    <img src="{{ '/assets/img/profile.jpg' | relative_url }}" alt="{{ site.data.config.name }}" class="profile-img">
+    <nav class="social-links" aria-label="social links">
+      {% for link in site.data.config.social %}
+        {% if link.type == "email" %}
+          <div class="icon-link icon-text">
+            {% include icon.html name=link.icon %}
+            <span>{{ link.value }}</span>
+          </div>
+        {% else %}
+          <a href="{% if link.external %}{{ link.url }}{% else %}{{ link.url | relative_url }}{% endif %}" class="icon-link"{% if link.external %} target="_blank" rel="noopener noreferrer"{% endif %}{% if link.download %} download{% endif %}>
+            {% include icon.html name=link.icon %}
+            <span>{{ link.label }}</span>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </nav>
+  </aside>
+</section>
+
+{% if site.data.news.size > 0 %}
+<section id="news" class="section fade-in">
+  {% include section-title.html title="News" id="news-title" %}
+  <div class="news-list" id="news-list">
+    {% for item in site.data.news %}
+      <div class="news-item{% if forloop.index > 7 %} news-hidden{% endif %}">
+        <span class="news-date">{{ item.date }}</span>
+        <span class="news-content">{{ item.content }}</span>
+      </div>
+    {% endfor %}
+  </div>
+  {% if site.data.news.size > 7 %}
+    <button class="show-more-btn" id="news-toggle" type="button" data-expanded="false">
+      Show more ({{ site.data.news.size | minus: 7 }} more)
+    </button>
+  {% endif %}
+</section>
+{% endif %}
+
+{% assign selected_pubs = site.data.publications | where: "selected", true %}
+{% if selected_pubs.size > 0 %}
+<section id="selected-publications" class="section fade-in">
+  {% include section-title.html title="Selected Publications" id="selected-publications-title" %}
+  <div class="paper-list">
+    {% for pub in selected_pubs %}
+      {% include paper-card.html pub=pub %}
+    {% endfor %}
+  </div>
+  <a href="{{ '/publication/' | relative_url }}" class="view-all-link">→ View all publications</a>
+</section>
+{% endif %}
+
+{% if site.data.talks.size > 0 %}
+<section id="invited-talks" class="section fade-in">
+  {% include section-title.html title="Invited Talks" id="invited-talks-title" %}
+  <div class="talks-list">
+    {% for talk in site.data.talks %}
+      <div class="card talk-card">
+        <div class="talk-header">
+          <span class="talk-event">{{ talk.event }}</span>
+          <span class="talk-date">{{ talk.date }}</span>
+        </div>
+        <p class="talk-title">{{ talk.title }}</p>
+        {% if talk.location %}
+          <p class="talk-location">{{ talk.location }}</p>
+        {% endif %}
+        {% if talk.slides or talk.video %}
+          <div class="talk-links">
+            {% if talk.slides %}
+              <a href="{{ talk.slides }}" class="link-badge" target="_blank" rel="noopener noreferrer">Slides</a>
+            {% endif %}
+            {% if talk.video %}
+              <a href="{{ talk.video }}" class="link-badge" target="_blank" rel="noopener noreferrer">Video</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if site.data.vitae.size > 0 %}
+<section id="vitae" class="section fade-in">
+  {% include section-title.html title="Vitae" id="vitae-title" %}
+  <div class="timeline">
+    {% for item in site.data.vitae %}
+      {% include timeline-item.html item=item %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

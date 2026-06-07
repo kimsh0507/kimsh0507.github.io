@@ -1,0 +1,26 @@
+---
+layout: page
+title: Research Notes and Essays
+kicker: Blog
+description: Public posts are listed here.
+blog_filter: true
+---
+
+<section class="fade-in" aria-label="Blog posts">
+  <div class="blog-tabs" role="tablist" aria-label="Blog category">
+    <button class="tab-btn active" type="button" role="tab" data-filter="research" aria-selected="true">
+      Research
+    </button>
+    <button class="tab-btn" type="button" role="tab" data-filter="life" aria-selected="false">
+      Life
+    </button>
+  </div>
+
+  <div class="blog-grid" id="blog-grid">
+    {% for post in site.posts %}
+      {% unless post.secret %}
+        {% include blog-card.html post=post %}
+      {% endunless %}
+    {% endfor %}
+  </div>
+</section>

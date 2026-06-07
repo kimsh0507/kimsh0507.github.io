@@ -1,0 +1,125 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg-primary), transparent 12%);
+  backdrop-filter: blur(12px);
+}
+
+.nav {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.brand {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 1.18rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.nav-link {
+  position: relative;
+  padding: 0.45rem 0;
+  color: var(--text-secondary);
+  font-family: Syne, system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.nav-link:hover,
+.nav-link[aria-current="page"] {
+  color: var(--accent);
+}
+
+.nav-link[aria-current="page"]::after {
+  position: absolute;
+  right: 0;
+  bottom: -14px;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  content: "";
+}
+
+.icon-button,
+.menu-button {
+  display: inline-grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.icon-button:hover,
+.menu-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.menu-button {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .nav {
+    padding: 0 16px;
+  }
+
+  .menu-button {
+    display: inline-grid;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 64px;
+    right: 16px;
+    left: 16px;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    padding: 0.5rem 0.8rem;
+  }
+
+  .nav-links.is-open {
+    display: flex;
+  }
+
+  .nav-link {
+    padding: 0.85rem 0;
+  }
+
+  .nav-link[aria-current="page"]::after {
+    bottom: 0.45rem;
+  }
+}

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    {% include head.html %}
+  </head>
+  <body>
+    {% include navbar.html %}
+    <main class="container page">
+      {{ content }}
+    </main>
+    {% include footer.html %}
+    <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+    {% if page.typewriter %}
+      <script>
+        window.RESEARCH_INTERESTS = {{ site.data.config.research_interests | jsonify }};
+      </script>
+      <script src="{{ '/assets/js/typewriter.js' | relative_url }}"></script>
+    {% endif %}
+    {% if page.news_toggle %}
+      <script src="{{ '/assets/js/news.js' | relative_url }}"></script>
+    {% endif %}
+    {% if page.blog_filter %}
+      <script src="{{ '/assets/js/blog.js' | relative_url }}"></script>
+    {% endif %}
+  </body>
+</html>

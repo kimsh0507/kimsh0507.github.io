@@ -1,0 +1,278 @@
+- title: "On Training Large Language Models for Long-Horizon Tasks: An Empirical Study of Horizon Length"
+  authors:
+    - "Sunghwan Kim"
+    - "Junhee Cho"
+    - "Beong-woo Kwak"
+    - "Taeyoon Kwon"
+    - "Liang Wang"
+    - "Nan Yang"
+    - "Xingxing Zhang"
+    - "Furu Wei"
+    - "Jinyoung Yeo"
+  equal_contribution: []
+  venue: "ICML 2026"
+  status: "poster"
+  award_name: ""
+  paper_url: "https://arxiv.org/abs/2605.02572"
+  website_url: ""
+  code_url: ""
+  dataset_url: ""
+  others: []
+  selected: true
+  year: 2026
+
+- title: "MEM1: Learning to Synergize Memory and Reasoning for Efficient Long-Horizon Agents"
+  authors:
+    - "Zijian Zhou"
+    - "Ao Qu"
+    - "Zhaoxuan Wu"
+    - "Sunghwan Kim"
+    - "Alok Prakash"
+    - "Daniela Rus"
+    - "Jinhua Zhao"
+    - "Bryan Kian Hsiang Low"
+    - "Paul Pu Liang"
+  equal_contribution:
+    - "Zijian Zhou"
+    - "Ao Qu"
+  venue: "ICLR 2026"
+  status: "poster"
+  award_name: ""
+  paper_url: "https://arxiv.org/abs/2506.15841"
+  website_url: ""
+  code_url: "https://github.com/MIT-MI/MEM1"
+  dataset_url: ""
+  others: []
+  selected: false
+  year: 2026
+
+- title: "Embodied Agents Meet Personalization: Exploring Memory Utilization for Personalized Assistance"
+  authors:
+    - "Taeyoon Kwon"
+    - "Dongwook Choi"
+    - "Sunghwan Kim"
+    - "Hyojun Kim"
+    - "Seungjun Moon"
+    - "Beong-woo Kwak"
+    - "Kuan-Hao Huang"
+    - "Jinyoung Yeo"
+  equal_contribution:
+    - "Taeyoon Kwon"
+    - "Dongwook Choi"
+  venue: "ICLR 2026"
+  status: "poster"
+  award_name: ""
+  paper_url: "https://arxiv.org/abs/2505.16348"
+  website_url: "https://connoriginal.github.io/MEMENTO/"
+  code_url: "https://github.com/Connoriginal/MEMENTO"
+  dataset_url: ""
+  others: []
+  selected: false
+  year: 2026
+
+- title: "Web-Shepherd: Advancing PRMs for Reinforcing Web Agents"
+  authors:
+    - "Hyungjoo Chae"
+    - "Sunghwan Kim"
+    - "Junhee Cho"
+    - "Seungone Kim"
+    - "Seungjun Moon"
+    - "Gyeom Hwangbo"
+    - "Dongha Lim"
+    - "Minjin Kim"
+    - "Yeonjun Hwang"
+    - "Minju Gwak"
+    - "Dongwook Choi"
+    - "Minseok Kang"
+    - "Gwanhoon Im"
+    - "ByeongUng Cho"
+    - "Hyojun Kim"
+    - "Jun Hee Han"
+    - "Taeyoon Kwon"
+    - "Minju Kim"
+    - "Beong-woo Kwak"
+    - "Dongjin Kang"
+    - "Jinyoung Yeo"
+  equal_contribution:
+    - "Hyungjoo Chae"
+    - "Sunghwan Kim"
+    - "Junhee Cho"
+  venue: "NeurIPS 2025"
+  status: "award"
+  award_name: "Spotlight"
+  paper_url: "https://arxiv.org/abs/2505.15277"
+  website_url: "https://huggingface.co/collections/LangAGI-Lab/web-shepherd-advancing-prms-for-reinforcing-web-agents"
+  code_url: "https://github.com/kyle8581/Web-Shepherd"
+  dataset_url: ""
+  others: []
+  selected: true
+  year: 2025
+
+- title: "ToolHaystack: Stress-Testing Tool-Augmented Language Models in Realistic Long-Term Interactions"
+  authors:
+    - "Beong-woo Kwak"
+    - "Minju Kim"
+    - "Dongha Lim"
+    - "Hyungjoo Chae"
+    - "Dongjin Kang"
+    - "Sunghwan Kim"
+    - "Dongil Yang"
+    - "Jinyoung Yeo"
+  equal_contribution: []
+  venue: "EMNLP 2025 Findings"
+  status: "poster"
+  award_name: ""
+  paper_url: "https://arxiv.org/abs/2505.23662"
+  website_url: ""
+  code_url: ""
+  dataset_url: ""
+  others: []
+  selected: false
+  year: 2025
+
+- title: "LLM Meets Scene Graph: Can Large Language Models Understand and Generate Scene Graphs? A Benchmark and Empirical Study"
+  authors:
+    - "Dongil Yang"
+    - "Minjin Kim"
+    - "Sunghwan Kim"
+    - "Beong-woo Kwak"
+    - "Minjun Park"
+    - "Jinseok Hong"
+    - "Woontack Woo"
+    - "Jinyoung Yeo"
+  equal_contribution: []
+  venue: "ACL 2025"
+  status: "poster"
+  award_name: ""
+  paper_url: "https://arxiv.org/abs/2505.19510"
+  website_url: ""
+  code_url: "https://github.com/docworlds/tsg-bench"
+  dataset_url: ""
+  others: []
+  selected: false
+  year: 2025
+
+- title: "Rethinking Reward Model Evaluation Through the Lens of Reward Overoptimization"
+  authors:
+    - "Sunghwan Kim"
+    - "Dongjin Kang"
+    - "Taeyoon Kwon"
+    - "Hyungjoo Chae"
+    - "Dongha Lee"
+    - "Jinyoung Yeo"
+  equal_contribution:
+    - "Sunghwan Kim"
+    - "Dongjin Kang"
+  venue: "ACL 2025"
+  status: "oral"
+  award_name: ""
+  paper_url: "https://arxiv.org/abs/2505.12763"
+  website_url: ""
+  code_url: "https://github.com/kimsh0507/rethinking_rm_eval"
+  dataset_url: ""
+  others: []
+  selected: true
+  year: 2025
+
+- title: "Web Agents with World Models: Learning and Leveraging Environment Dynamics in Web Navigation"
+  authors:
+    - "Hyungjoo Chae"
+    - "Namyoung Kim"
+    - "Kai Tzu-iunn Ong"
+    - "Minju Gwak"
+    - "Gwanwoo Song"
+    - "Jihoon Kim"
+    - "Sunghwan Kim"
+    - "Dongha Lee"
+    - "Jinyoung Yeo"
+  equal_contribution: []
+  venue: "ICLR 2025"
+  status: "poster"
+  award_name: ""
+  paper_url: "https://arxiv.org/abs/2410.13232"
+  website_url: ""
+  code_url: "https://github.com/kyle8581/WMA-Agents"
+  dataset_url: ""
+  others: []
+  selected: false
+  year: 2025
+
+- title: "Cactus: Towards Psychological Counseling Conversations using Cognitive Behavioral Theory"
+  authors:
+    - "Suyeon Lee"
+    - "Sunghwan Kim"
+    - "Minju Kim"
+    - "Dongjin Kang"
+    - "Dongil Yang"
+    - "Harim Kim"
+    - "Minseok Kang"
+    - "Dayi Jung"
+    - "Min Hee Kim"
+    - "Seungbeen Lee"
+    - "Kyoung-Mee Chung"
+    - "Youngjae Yu"
+    - "Dongha Lee"
+    - "Jinyoung Yeo"
+  equal_contribution:
+    - "Suyeon Lee"
+    - "Sunghwan Kim"
+    - "Minju Kim"
+  venue: "EMNLP 2024 Findings"
+  status: "poster"
+  award_name: ""
+  paper_url: "https://arxiv.org/abs/2407.03103"
+  website_url: ""
+  code_url: "https://github.com/coding-groot/cactus"
+  dataset_url: ""
+  others: []
+  selected: false
+  year: 2024
+
+- title: "Language Models as Compilers: Simulating Pseudocode Execution Improves Algorithmic Reasoning in Language Models"
+  authors:
+    - "Hyungjoo Chae"
+    - "Yeonghyeon Kim"
+    - "Seungone Kim"
+    - "Kai Tzu-iunn Ong"
+    - "Beong-woo Kwak"
+    - "Moohyeon Kim"
+    - "Sunghwan Kim"
+    - "Taeyoon Kwon"
+    - "Jiwan Chung"
+    - "Youngjae Yu"
+    - "Jinyoung Yeo"
+  equal_contribution: []
+  venue: "EMNLP 2024"
+  status: "poster"
+  award_name: ""
+  paper_url: "https://arxiv.org/abs/2404.02575"
+  website_url: ""
+  code_url: "https://github.com/kyle8581/LanguageModelsasCompilers"
+  dataset_url: ""
+  others: []
+  selected: false
+  year: 2024
+
+- title: "Can Large Language Models be Good Emotional Supporter? Mitigating Preference Bias on Emotional Support Conversation"
+  authors:
+    - "Dongjin Kang"
+    - "Sunghwan Kim"
+    - "Taeyoon Kwon"
+    - "Seungjun Moon"
+    - "Hyunsouk Cho"
+    - "Youngjae Yu"
+    - "Dongha Lee"
+    - "Jinyoung Yeo"
+  equal_contribution:
+    - "Dongjin Kang"
+    - "Sunghwan Kim"
+  venue: "ACL 2024"
+  status: "award"
+  award_name: "Outstanding Paper Award"
+  paper_url: "https://arxiv.org/abs/2402.13211"
+  website_url: ""
+  code_url: "https://github.com/1eastar/EmotionalSupport"
+  dataset_url: ""
+  others: []
+  selected: true
+  year: 2024

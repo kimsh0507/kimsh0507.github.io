@@ -1,0 +1,265 @@
+.card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  box-shadow: var(--card-shadow);
+  padding: 20px 24px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.paper-list,
+.talks-list,
+.blog-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.year-group {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.year-heading {
+  margin: 0.5rem 0 0;
+  color: var(--text-muted);
+  font-family: Syne, system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.paper-badges,
+.paper-links,
+.blog-keywords,
+.post-keywords,
+.talk-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 5px;
+  padding: 2px 9px;
+  font-family: Syne, system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.badge--venue {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+.badge--oral {
+  background: #451a03;
+  color: #fb923c;
+}
+
+[data-theme="light"] .badge--oral {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.badge--award {
+  background: #422006;
+  color: #fbbf24;
+}
+
+[data-theme="light"] .badge--award {
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.badge--keyword {
+  background: var(--accent-bg);
+  color: var(--accent-light);
+}
+
+.paper-title,
+.blog-title {
+  margin: 0.75rem 0 0.45rem;
+  color: var(--text-primary);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.paper-authors {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.925rem;
+  line-height: 1.6;
+}
+
+.paper-authors strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.equal-contrib-note {
+  color: var(--text-muted);
+  font-family: Syne, system-ui, sans-serif;
+  font-size: 0.76rem;
+}
+
+.paper-links,
+.talk-links {
+  margin-top: 0.9rem;
+}
+
+.link-badge {
+  display: inline-block;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px 10px;
+  color: var(--text-secondary);
+  font-family: Syne, system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.link-badge:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.link-badge--disabled {
+  cursor: default;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.view-all-link {
+  display: inline-flex;
+  margin-top: 1rem;
+  color: var(--accent);
+  font-family: Syne, system-ui, sans-serif;
+  font-weight: 700;
+}
+
+.view-all-link:hover {
+  text-decoration: underline;
+}
+
+.news-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.news-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: baseline;
+  gap: 16px;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+}
+
+.news-item:last-child {
+  border-bottom: 0;
+}
+
+.news-date {
+  color: var(--text-muted);
+  font-family: Syne, system-ui, sans-serif;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.news-content {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.news-content strong {
+  color: var(--text-primary);
+}
+
+.news-content a {
+  color: var(--link);
+}
+
+.news-content a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+.news-hidden {
+  display: none;
+}
+
+.show-more-btn {
+  display: block;
+  margin: 12px auto 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font-family: Syne, system-ui, sans-serif;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.show-more-btn:hover {
+  text-decoration: underline;
+}
+
+.talk-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.55rem;
+}
+
+.talk-event,
+.talk-date {
+  color: var(--text-muted);
+  font-family: Syne, system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.talk-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.talk-location {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 18px 20px;
+  }
+
+  .news-item {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .talk-header {
+    display: grid;
+  }
+}

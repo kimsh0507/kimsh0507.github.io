@@ -1,0 +1,4 @@
+<span class="badge badge--{{ include.variant | default: 'venue' }}">
+  {% if include.variant == 'award' %}<span aria-hidden="true">🏆</span>{% endif %}
+  {{ include.label }}
+</span>

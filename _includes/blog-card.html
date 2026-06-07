@@ -1,0 +1,17 @@
+<a href="{{ include.post.url | relative_url }}" class="card blog-card" data-category="{{ include.post.category }}">
+  <div class="blog-meta-row">
+    <span class="blog-category">{{ include.post.category | capitalize }}</span>
+    <time class="blog-date" datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: "%Y.%m" }}</time>
+  </div>
+  <h3 class="blog-title">{{ include.post.title }}</h3>
+  {% if include.post.tldr %}
+    <p class="blog-tldr">{{ include.post.tldr }}</p>
+  {% endif %}
+  {% if include.post.keywords %}
+    <div class="blog-keywords">
+      {% for kw in include.post.keywords %}
+        {% include badge.html label=kw variant="keyword" %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</a>
