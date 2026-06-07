@@ -5,13 +5,8 @@
   </div>
   <h3 class="blog-title">{{ include.post.title }}</h3>
   {% if include.post.tldr %}
-    <p class="blog-tldr">{{ include.post.tldr }}</p>
-  {% endif %}
-  {% if include.post.keywords %}
-    <div class="blog-keywords">
-      {% for kw in include.post.keywords %}
-        {% include badge.html label=kw variant="keyword" %}
-      {% endfor %}
-    </div>
+  <p class="blog-tldr">{{ include.post.tldr }}</p>
+  {% endif %} {% if include.post.keywords %}
+  <div class="blog-keywords">{% for kw in include.post.keywords %} {% include badge.html label=kw variant="keyword" %} {% endfor %}</div>
   {% endif %}
 </a>

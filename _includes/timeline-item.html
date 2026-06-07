@@ -4,13 +4,11 @@
   <div class="timeline-content card">
     <div class="vitae-heading">
       <p class="vitae-role">{{ include.item.role }}</p>
-      <span class="vitae-type">
-        {% if include.item.type == "industry" %}Industry{% else %}Academy{% endif %}
-      </span>
+      <span class="vitae-type"> {% if include.item.type == "industry" %}Industry{% else %}Academy{% endif %} </span>
     </div>
     <p class="vitae-institution">{{ include.item.institution }}</p>
     {% if include.item.description %}
-      <p class="vitae-desc">{{ include.item.description }}</p>
+    <p class="vitae-desc">{{ include.item.description }}</p>
     {% endif %}
   </div>
 </div>

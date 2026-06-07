@@ -4,7 +4,10 @@
   background: var(--bg-secondary);
   box-shadow: var(--card-shadow);
   padding: 20px 24px;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
 }
 
 .card:hover {
@@ -130,7 +133,9 @@
   font-size: 0.72rem;
   font-weight: 500;
   text-decoration: none;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .link-badge:hover {

@@ -1,4 +1,4 @@
-(function() {
+(function () {
   var el = document.getElementById("typewriter");
   if (!el || !window.RESEARCH_INTERESTS || !window.RESEARCH_INTERESTS.length) return;
 

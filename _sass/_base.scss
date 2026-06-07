@@ -194,7 +194,9 @@ button {
   font-family: Syne, system-ui, sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
-  transition: color 0.15s ease, transform 0.15s ease;
+  transition:
+    color 0.15s ease,
+    transform 0.15s ease;
 }
 
 .icon-link:hover {
@@ -223,7 +225,9 @@ button {
 .fade-in {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
 }
 
 .fade-in.visible {

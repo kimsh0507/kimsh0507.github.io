@@ -1,4 +1,4 @@
-(function() {
+(function () {
   var btn = document.getElementById("theme-toggle");
   if (!btn) return;
 
@@ -14,7 +14,7 @@
     if (sun) sun.style.display = isDark ? "block" : "none";
   }
 
-  btn.addEventListener("click", function() {
+  btn.addEventListener("click", function () {
     var current = document.documentElement.getAttribute("data-theme") || "dark";
     setTheme(current === "dark" ? "light" : "dark");
   });
