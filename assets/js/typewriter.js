@@ -11,6 +11,11 @@
   var PAUSE_AFTER_TYPE = 1500;
   var PAUSE_AFTER_DELETE = 500;
 
+  if (texts.length === 1) {
+    el.textContent = texts[0];
+    return;
+  }
+
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     el.textContent = texts[0];
     return;
