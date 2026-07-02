@@ -72,10 +72,14 @@ Post files are Markdown files, not standalone YAML files. Add YAML front matter 
 layout: post
 title: "Post Title"
 date: 2026-06-07
+visible: true
+sitemap: true
 keywords:
   - Research
 ---
 ```
+
+Only posts with `visible: true` are shown in the blog list and RSS feed. Add `sitemap: true` to public posts that should appear in the sitemap.
 
 Secret posts can be published by URL while staying out of the blog list, RSS feed, and sitemap:
 

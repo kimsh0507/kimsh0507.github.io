@@ -10,8 +10,8 @@ layout: null
   <id>{{ '/' | absolute_url }}</id>
   <title type="html">{{ site.title | xml_escape }}</title>
   <subtitle>{{ site.description | xml_escape }}</subtitle>
-  {% for post in site.posts %}
-  {% unless post.secret %}
+  {% assign visible_posts = site.posts | where_exp: "post", "post.visible == true and post.secret != true and post.hidden != true" %}
+  {% for post in visible_posts %}
   <entry>
     <title type="html">{{ post.title | xml_escape }}</title>
     <link href="{{ post.url | absolute_url }}" rel="alternate" type="text/html" title="{{ post.title | xml_escape }}" />
@@ -21,6 +21,5 @@ layout: null
     <content type="html" xml:base="{{ post.url | absolute_url }}">{{ post.content | xml_escape }}</content>
     <summary type="html">{{ post.excerpt | strip_html | normalize_whitespace | xml_escape }}</summary>
   </entry>
-  {% endunless %}
   {% endfor %}
 </feed>

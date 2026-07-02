@@ -7,11 +7,36 @@ news_toggle: true
 
 <section class="about-me fade-in" aria-label="About me">
   <div class="about-left">
+    <p class="hero-greeting">Hi, glad you're here 👋</p>
     <h1 class="hero-name">{{ site.data.config.name }}</h1>
     <p class="typewriter-prefix">
-      Research: <span id="typewriter">{{ site.data.config.research_interests[0] }}</span><span class="cursor" aria-hidden="true">|</span>
+      Research Interest: <span id="typewriter">{{ site.data.config.research_interests[0] }}</span><span class="cursor" aria-hidden="true">|</span>
     </p>
     <div class="bio">{{ site.data.config.bio }}</div>
+    <details class="research-axes">
+      <summary>Research Detail</summary>
+      <div class="axis-diagram" aria-label="Research axes diagram">
+        <svg class="axis-lines" viewBox="0 0 640 360" aria-hidden="true" focusable="false">
+          <polygon points="320,40 82,304 558,304"></polygon>
+        </svg>
+        <div class="axis-core">
+          <span>Self-improving AI</span>
+          <small>continual learning over a lifetime</small>
+        </div>
+        <article class="axis-node axis-node--environment">
+          <h2>Environments</h2>
+          <p>Data defines what and how to learn, while rewards guide learning direction.</p>
+        </article>
+        <article class="axis-node axis-node--agents">
+          <h2>Agents</h2>
+          <p>Adaptive, meta-cognitive policies for tasks and uncertainty.</p>
+        </article>
+        <article class="axis-node axis-node--learning">
+          <h2>Learning</h2>
+          <p>How to learn, analyze learning dynamics, and ensure controllability.</p>
+        </article>
+      </div>
+    </details>
   </div>
 
   <aside class="about-right" aria-label="Profile links">

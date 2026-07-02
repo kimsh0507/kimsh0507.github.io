@@ -1,6 +1,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-{% if page.secret %}
+{% assign noindex_post = false %}
+{% if page.layout == "post" and page.visible != true %}
+{% assign noindex_post = true %}
+{% endif %}
+{% if page.secret or page.hidden or noindex_post %}
 <meta name="robots" content="noindex, nofollow" />
 {% endif %}
 <script>

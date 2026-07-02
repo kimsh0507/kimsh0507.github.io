@@ -18,7 +18,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      sitemap: true
+      sitemap: false
 
 kramdown:
   input: GFM

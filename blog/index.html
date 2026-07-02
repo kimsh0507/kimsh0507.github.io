@@ -13,6 +13,9 @@ blog_filter: true
   </div>
 
   <div class="blog-grid" id="blog-grid">
-    {% for post in site.posts %} {% unless post.secret %} {% include blog-card.html post=post %} {% endunless %} {% endfor %}
+    {% assign visible_posts = site.posts | where_exp: "post", "post.visible == true and post.secret != true and post.hidden != true" %}
+    {% for post in visible_posts %}
+    {% include blog-card.html post=post %}
+    {% endfor %}
   </div>
 </section>

@@ -32,9 +32,9 @@
 .year-heading {
   margin: 0.5rem 0 0;
   color: var(--text-muted);
-  font-family: Syne, system-ui, sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
 }
 
 .paper-badges,
@@ -54,7 +54,7 @@
   gap: 4px;
   border-radius: 5px;
   padding: 2px 9px;
-  font-family: Syne, system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 0.72rem;
   font-weight: 500;
   white-space: nowrap;
@@ -114,7 +114,7 @@
 
 .equal-contrib-note {
   color: var(--text-muted);
-  font-family: Syne, system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 0.76rem;
 }
 
@@ -129,7 +129,7 @@
   border-radius: 6px;
   padding: 3px 10px;
   color: var(--text-secondary);
-  font-family: Syne, system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 0.72rem;
   font-weight: 500;
   text-decoration: none;
@@ -153,7 +153,7 @@
   display: inline-flex;
   margin-top: 1rem;
   color: var(--accent);
-  font-family: Syne, system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-weight: 700;
 }
 
@@ -181,7 +181,7 @@
 
 .news-date {
   color: var(--text-muted);
-  font-family: Syne, system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 0.8rem;
   white-space: nowrap;
 }
@@ -215,7 +215,7 @@
   border: 0;
   background: none;
   color: var(--accent);
-  font-family: Syne, system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 0.875rem;
   cursor: pointer;
   padding: 4px 0;
@@ -235,7 +235,7 @@
 .talk-event,
 .talk-date {
   color: var(--text-muted);
-  font-family: Syne, system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
 }
