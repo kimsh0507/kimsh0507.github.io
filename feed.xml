@@ -3,7 +3,7 @@
   <generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator>
   <link href="https://kimsh0507.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://kimsh0507.github.io/" rel="alternate" type="text/html" />
-  <updated>2026-07-21T14:57:16+00:00</updated>
+  <updated>2026-07-21T15:08:54+00:00</updated>
   <id>https://kimsh0507.github.io/</id>
   <title type="html">Sunghwan Kim</title>
   <subtitle>M.S. student at Language and AGI Lab researching language agents, reinforcement learning, and interactive learning systems.</subtitle>
@@ -102,7 +102,7 @@
     &lt;/tbody&gt;
   &lt;/table&gt;
 
-  &lt;p&gt;우리는 “Training on self-generated data”에 집중하고자 한다.&lt;/p&gt;
+  &lt;p&gt;이 중, 우리는 “Training on self-generated data”영억에 집중하고자 한다.&lt;/p&gt;
 
   &lt;h3 id=&quot;zero-data-self-play--&quot;&gt;Zero-data self-play는 왜 무너지는가&lt;/h3&gt;
 
@@ -129,7 +129,6 @@
   &lt;p&gt;우리가 쓰는 프레임워크를 STAGE(&lt;strong&gt;S&lt;/strong&gt;elf-improving via &lt;strong&gt;T&lt;/strong&gt;rajectory-grounded &lt;strong&gt;A&lt;/strong&gt;uxiliary tasks &lt;strong&gt;GE&lt;/strong&gt;neration)라고 부른다. 학습이 여러 단계(stage)를 밟아 간다는 의미도 겸한다.&lt;/p&gt;
 
   &lt;p&gt;구성은 두 역할로 나뉜다.&lt;/p&gt;
-
   &lt;ul&gt;
     &lt;li&gt;&lt;strong&gt;Meta-Learner (Proposer)&lt;/strong&gt;: &lt;em&gt;무엇을 배울 것인가&lt;/em&gt;를 결정한다.&lt;/li&gt;
     &lt;li&gt;&lt;strong&gt;Learner (Solver)&lt;/strong&gt;: 만들어진 데이터로 학습한다.&lt;/li&gt;
