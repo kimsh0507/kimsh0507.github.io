@@ -81,6 +81,41 @@ keywords:
 
 Only posts with `visible: true` are shown in the blog list and RSS feed. Add `sitemap: true` to public posts that should appear in the sitemap.
 
+### Bilingual Posts
+
+Set `bilingual: true` to show the English and Korean versions on one post page. The selected language is remembered across posts. Use the following structure so the title, summary, and body switch together:
+
+```markdown
+---
+layout: post
+title: "English Title"
+title_ko: "한국어 제목"
+date: 2026-06-07
+category: research
+tldr: "English summary."
+tldr_ko: "한국어 요약."
+keywords: [evaluation, reasoning]
+bilingual: true
+default_language: en
+visible: true
+sitemap: true
+---
+
+<section id="post-body-en" data-post-language-panel="en" lang="en" aria-label="English version" markdown="1">
+
+Write the English Markdown here.
+
+</section>
+
+<section id="post-body-ko" data-post-language-panel="ko" lang="ko" aria-label="한국어 버전" hidden markdown="1">
+
+한국어 Markdown을 여기에 작성합니다.
+
+</section>
+```
+
+Keep a blank line after each opening `<section>` tag and before each closing tag. This allows Kramdown to render headings, lists, tables, and code blocks inside both sections.
+
 Secret posts can be published by URL while staying out of the blog list, RSS feed, and sitemap:
 
 ```yaml

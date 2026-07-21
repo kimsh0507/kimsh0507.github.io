@@ -2,17 +2,59 @@
 layout: default
 ---
 
-<article class="post-container fade-in">
+{% assign post_default_language = page.default_language | default: "en" %}
+<article
+  class="post-container fade-in"
+  {% if page.bilingual %}
+  data-bilingual-post
+  data-default-language="{{ post_default_language }}"
+  {% endif %}
+>
   <header class="post-header">
-    <span class="post-category">{{ page.category | capitalize }}</span>
+    <div class="post-heading-row">
+      <span class="post-category">{{ page.category | capitalize }}</span>
+      {% if page.bilingual %}
+      <div class="post-language-switcher" role="group" aria-label="Post language">
+        <button
+          class="post-language-button active"
+          type="button"
+          data-post-language-button="en"
+          aria-controls="post-body-en"
+          aria-pressed="true"
+        >
+          English
+        </button>
+        <button
+          class="post-language-button"
+          type="button"
+          data-post-language-button="ko"
+          aria-controls="post-body-ko"
+          aria-pressed="false"
+        >
+          한국어
+        </button>
+      </div>
+      {% endif %}
+    </div>
+
+    {% if page.bilingual %}
+    <h1 class="post-title" data-post-language-copy="en" lang="en">{{ page.title }}</h1>
+    <h1 class="post-title" data-post-language-copy="ko" lang="ko" hidden>{{ page.title_ko | default: page.title }}</h1>
+    {% else %}
     <h1 class="post-title">{{ page.title }}</h1>
+    {% endif %}
+
     <div class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y.%m.%d" }}</time>
       {% if page.keywords %}
       <div class="post-keywords">{% for kw in page.keywords %} {% include badge.html label=kw variant="keyword" %} {% endfor %}</div>
       {% endif %}
     </div>
-    {% if page.tldr %}
+
+    {% if page.bilingual and page.tldr %}
+    <blockquote class="post-tldr" data-post-language-copy="en" lang="en">{{ page.tldr }}</blockquote>
+    <blockquote class="post-tldr" data-post-language-copy="ko" lang="ko" hidden>{{ page.tldr_ko | default: page.tldr }}</blockquote>
+    {% elsif page.tldr %}
     <blockquote class="post-tldr">{{ page.tldr }}</blockquote>
     {% endif %}
   </header>

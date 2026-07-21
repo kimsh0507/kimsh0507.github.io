@@ -25,7 +25,7 @@
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0 }
   );
 
   document.querySelectorAll(".fade-in").forEach(function (el) {
