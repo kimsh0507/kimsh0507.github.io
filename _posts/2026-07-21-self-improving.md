@@ -56,7 +56,7 @@ $\mathcal{F}$와 $\mathcal{D}_s$에 무엇을 넣느냐에 따라 기존 연구�
 | Self-play with zero data | SFT/RL 학습 | Zero-data | R-Zero, AZR |
 | **Training on self-generated data** | **SFT/RL 학습** | **Seed task, corpus, trajectory** | **CoT-Self-Instruct, SEAL, SPICE, SOAR** |
 
-우리는 "Training on self-generated data"에 집중하고자 한다.
+이 중, 우리는 "Training on self-generated data"영억에 집중하고자 한다.
 
 ### Zero-data self-play는 왜 무너지는가
 
@@ -83,10 +83,8 @@ trajectory를 고른 첫 번째 이유는 정보량이다. 하나의 trajectory�
 우리가 쓰는 프레임워크를 STAGE(**S**elf-improving via **T**rajectory-grounded **A**uxiliary tasks **GE**neration)라고 부른다. 학습이 여러 단계(stage)를 밟아 간다는 의미도 겸한다.
 
 구성은 두 역할로 나뉜다.
-
 - **Meta-Learner (Proposer)**: *무엇을 배울 것인가*를 결정한다.
 - **Learner (Solver)**: 만들어진 데이터로 학습한다.
-
 
 ```
 Require: Meta-Learner π_φ, Learner π_θ, Trajectory set T = {τ_1, ..., τ_Nt}
