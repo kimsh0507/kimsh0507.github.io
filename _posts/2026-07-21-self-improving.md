@@ -78,25 +78,20 @@ Zero-data self-play의 매력은 분명하다. 별도의 human effort 없이 모
 trajectory를 고른 첫 번째 이유는 **정보 밀도**다. 하나의 trajectory에는 다음 정보가 함께 들어 있다.
 
 - 어떤 계획을 세웠는가
-- 어떤 도구를 어떤 인자로 호출했는가
 - 환경이 어떻게 반응했는가
-- 어느 가정이 틀렸는가
 - 실패 뒤 어떤 복구 전략을 택했는가
 - 최종적으로 무엇이 성공과 실패를 갈랐는가
 
 일반적인 RL 학습에서는 이 긴 과정을 최종 reward 하나로 압축해 버리기 쉽다. 하지만 reward가 같더라도 두 trajectory가 담고 있는 학습 신호는 전혀 다를 수 있다. 예를 들어 문서 검색 에이전트가 API 호출에 실패했다고 해보자. 최종 결과만 보면 단순한 실패다. 그러나 trajectory 안에는 훨씬 구체적인 학습 과제가 숨어 있다.
 
-- API가 거부한 인자 형식은 무엇인가
 - 에러 메시지에서 어떤 제약을 추론할 수 있는가
 - 도구 호출 전에 어떤 정보를 확인했어야 하는가
 - 실패 뒤 어떤 복구 행동이 가장 효율적인가
 - 같은 종류의 오류를 다른 도구에서도 피하려면 어떤 규칙을 배워야 하는가
 
-하나의 실패 기록에서 tool-use, world modeling, error diagnosis, planning, recovery에 관한 서로 다른 auxiliary task를 만들 수 있다.
+하나의 실패 기록에서 world modeling, error diagnosis, planning, recovery에 관한 서로 다른 auxiliary task를 만들 수 있다.
 
-두 번째 이유는 **self-improving system이 실제로 마주할 미래**다. 앞으로 축적될 source는 잘 정제된 seed task 묶음보다 에이전트–사용자, 에이전트–환경 상호작용이 쌓인 방대한 로그에 가까울 가능성이 높다. 그렇다면 중요한 문제는 이미 존재하는 로그를 버리지 않고 학습 데이터로 바꾸는 일이다.
-
-우리는 이 문제를 지금부터 푸는 것이 맞다고 본다.
+두 번째 이유는 **self-improving system이 실제로 마주할 미래**다. 앞으로 축적될 source는 잘 정제된 seed task 묶음보다 에이전트–사용자, 에이전트–환경 상호작용이 쌓인 방대한 로그에 가까울 가능성이 높다. 그렇다면 중요한 문제는 이미 존재하는 로그를 버리지 않고 학습 데이터로 바꾸는 일이다. 우리는 이 문제를 지금부터 푸는 것이 맞다고 보았다.
 
 # 2. STAGE: trajectory를 학습 신호로 바꾸는 루프
 
@@ -251,7 +246,7 @@ $$\log \frac{p_\theta(A \mid Q, C)}{p_\theta(A \mid Q)}$$
 2. **Learnable Novelty를 활용한 self-improving loop를 통해서 Robust한 Agent를 만들 수 있는가?**
 3. **반복적인 학습에서도 collapse이 없는가?**
 
-# 글을 마치며...
+## 글을 마치며...
 
 오늘날 에이전트는 매 순간 많은 경험을 만들지만, 대부분의 학습 파이프라인은 그 경험을 충분히 사용하지 못한다. 성공과 실패가 뒤섞인 긴 trajectory는 최종 reward 하나나 정답 action 하나로 압축되고, 그 과정에서 다음 학습에 쓸 수 있는 구조가 사라진다.
 
@@ -267,24 +262,44 @@ STAGE는 이 trajectory를 다시 펼쳐 보는 시도다. Meta-Learner가 경�
 
 ### References
 [1] Madaan et al. "[Self-Refine: Iterative Refinement with Self-Feedback](https://arxiv.org/abs/2303.17651)" 2023
+
 [2] Shinn et al. "[Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366)" 2023
+
 [3] Zhang et al. "[Darwin Gödel Machine: Open-Ended Evolution of Self-Improving Agents](https://arxiv.org/abs/2505.22954)" 2025
+
 [4] Zhang et al. "[Agentic Context Engineering: Evolving Contexts for Self-Improving Language Models](https://arxiv.org/abs/2510.04618)" 2025
+
 [5] Zuo et al. "[TTRL: Test-Time Reinforcement Learning](https://arxiv.org/abs/2504.16084)" 2025
+
 [6] Yuksekgonul et al. "[Learning to Discover at Test Time](https://arxiv.org/abs/2601.16175)" 2026
+
 [7] Zhang et al. "[ReST-MCTS*: LLM Self-Training via Process Reward Guided Tree Search](https://arxiv.org/abs/2406.03816)" 2024
+
 [8] Wu et al. "[Self-Trained Verification for Training- and Test-Time Self-Improvement](https://arxiv.org/abs/2605.30290)" 2026
+
 [9] Zhao et al. "[Self-Distilled Reasoner: On-Policy Self-Distillation for Large Language Models](https://arxiv.org/abs/2601.18734)" 2026
+
 [10] Shenfeld et al. "[Self-Distillation Enables Continual Learning](https://arxiv.org/abs/2601.19897)" 2026
+
 [11] Hübotter et al. "[Reinforcement Learning via Self-Distillation](https://arxiv.org/abs/2601.20802)" 2026
+
 [12] Huang et al. "[R-Zero: Self-Evolving Reasoning LLM from Zero Data](https://arxiv.org/abs/2508.05004)" 2025
+
 [13] Zhao et al. "[Absolute Zero: Reinforced Self-play Reasoning with Zero Data](https://arxiv.org/abs/2505.03335)" 2025
+
 [14] Yu et al. "[CoT-Self-Instruct: Building High-Quality Synthetic Prompts for Reasoning and Non-Reasoning Tasks](https://arxiv.org/abs/2507.23751)" 2025
+
 [15] Zweiger et al. "[Self-Adapting Language Models](https://arxiv.org/abs/2506.10943)" 2025
+
 [16] Liu et al. "[SPICE: Self-Play In Corpus Environments Improves Reasoning](https://arxiv.org/abs/2510.24684)" 2025
+
 [17] Sundaram et al. "[Teaching Models to Teach Themselves: Reasoning at the Edge of Learnability](https://arxiv.org/abs/2601.18778)" 2026
+
 [18] Bailey et al. "[Scaling Self-Play with Self-Guidance](https://arxiv.org/abs/2604.20209)" 2026
+
 [19] Pu et al. "[Survive or Collapse: The Asymmetric Roles of Data Gating and Reward Grounding in Self-Play RL](https://arxiv.org/abs/2605.22217)" 2026
+
 [20] Finzi et al. "[From Entropy to Epiplexity: Rethinking Information for Computationally Bounded Intelligence](https://arxiv.org/abs/2601.03220)" 2026
+
 
 </section>
