@@ -10,7 +10,7 @@ bilingual: true
 default_language: ko
 math: true
 visible: true
-secret: false
+secret: true
 sitemap: false
 ---
 
