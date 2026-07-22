@@ -55,7 +55,7 @@ $\mathcal{F}$와 $\mathcal{D}_s$에 무엇을 넣느냐에 따라 기존 연구�
 
 우리는 이 가운데 **training on self-generated data**, 특히 **trajectory를 source로 사용하는 방식**에 집중한다.
 
-## 1.1 Zero-data self-play는 왜 무너지 쉬운가?
+## 1.1 Zero-data self-play는 왜 무너지기 쉬운가?
 
 Zero-data self-play의 매력은 분명하다. 별도의 human effort 없이 모델이 문제를 만들고, 풀고, 그 결과로 다시 학습할 수 있다. 그러나 이 루프는 쉽게 collapse한다 [18, 19]. 원인은 대체로 세 가지가 얽혀 있다.
 
@@ -73,7 +73,7 @@ Zero-data self-play의 매력은 분명하다. 별도의 human effort 없이 모
 
 ## 1.2 Why 'Trajectory'?
 
-우리가 선택한 source \(\mathcal{D}_s\)는 에이전트의 trajectory다. 현재 모델이 직접 만든 기록일 수도 있고, 다른 모델이나 과거 버전의 에이전트가 남긴 기록일 수도 있다.
+우리가 선택한 source $\mathcal{D}_s$는 에이전트의 trajectory다. 현재 모델이 직접 만든 기록일 수도 있고, 다른 모델이나 과거 버전의 에이전트가 남긴 기록일 수도 있다.
 
 trajectory를 고른 첫 번째 이유는 **정보 밀도**다. 하나의 trajectory에는 다음 정보가 함께 들어 있다.
 
@@ -248,9 +248,9 @@ $$\log \frac{p_\theta(A \mid Q, C)}{p_\theta(A \mid Q)}$$
 
 ## 글을 마치며...
 
-오늘날 에이전트는 매 순간 많은 경험을 만들지만, 대부분의 학습 파이프라인은 그 경험을 충분히 사용하지 못한다. 성공과 실패가 뒤섞인 긴 trajectory는 최종 reward 하나나 정답 action 하나로 압축되고, 그 과정에서 다음 학습에 쓸 수 있는 구조가 사라진다.
+오늘날 에이전트는 매 순간 많은 경험을 만들지만, 대부분의 학습 파이프라인은 그 경험을 충분히 사용하지 못한다. 강화학습을 통한 학습에서는  긴 trajectory는 최종 reward 하나로 압축하여 학습된다.
 
-STAGE는 이 trajectory를 다시 펼쳐 보는 시도다. Meta-Learner가 경험 속에서 **auxiliary task**를 만들고, Learner가 그것을 학습하며, 그 결과가 다시 다음 데이터 생성을 바꾸는 루프를 구성한다.
+우리는 이 trajectory를 self-improving 관점에서 다시 접근한다. Meta-Learner가 주어진 경험 속에서 **auxiliary task**를 만들고, Learner가 그것을 학습하며, 그 결과가 다시 다음 데이터 생성을 바꾸는 루프를 구성한다.
 
 하지만 루프를 만든 것만으로 자기개선이 일어나지는 않는다. 무엇을 배울지 선택하는 기준이 없다면 시스템은 쉬운 문제를 반복하거나, 어렵지만 무의미한 문제를 만들거나, 자신의 편향을 증폭시키는 방향으로 흘러갈 수 있다. 또한, 우리는 예측가능한 미래 task를 넘어서 OOD환경에서도 잘 적응할 수 있는 agent를 만들어야 한다.
 
