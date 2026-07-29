@@ -16,7 +16,278 @@ sitemap: false
 
 <section id="post-body-en" data-post-language-panel="en" lang="en" aria-label="English version" markdown="1">
 
-Only korean version
+The world inside a benchmark is forgiving. The scope of the problem is predefined, the expected form of the answer is usually known, and once evaluation is complete, nothing new happens. The world in which real-world agents operate is fundamentally different: tools change, rules are revised without warning, and strategies that worked yesterday may fail today. In such an open-ended world, achieving high performance once is not enough. What matters is not whether an agent knows everything from the outset, but whether it can turn unexpected experiences into new capabilities.
+
+An agent that cannot improve itself becomes outdated as soon as its environment changes, whereas an agent that continues to learn from experience can evolve alongside its environment. Self-improvement is therefore not merely an optional path toward building more capable agents; it is a necessary condition for agents to remain useful in an open world.
+
+What, then, should agents learn from? We believe the answer lies in the behavioral records they already generate: their **trajectories**. An agent’s trajectory contains not only successful strategies, but also failed plans, incorrect assumptions, new observations, and trial-and-error interactions with tools. We propose a self-improvement loop that generates new **auxiliary tasks** from these experiences and uses them as training data.
+
+However, not all experiences are equally valuable. Data that merely repeats what the agent already knows increases the amount of training without providing meaningful new information, while data that is novel but unrelated to actual behavior may fail to make the agent more capable. The central question is therefore not simply, “How can we generate more data?” Instead, we argue that effective self-improvement data should satisfy a criterion we call **learnable novelty**: it should be new to the agent, yet structured in a way that allows the agent to learn from it and reuse the resulting knowledge in future decision-making and problem-solving.
+
+This article develops two main ideas:
+
+1. A continuous self-improvement loop that generates auxiliary tasks from trajectories
+2. Learnable novelty as a principle for selecting training data within that loop
+
+# 1. Self-Improving AI
+
+Recent studies pursuing very different research directions have all been described as forms of “self-improvement.” To compare them clearly, we first need a simple formulation. Given a current model $\mathcal{M}_\theta$, an improving function $\mathcal{F}$, and a source of improvement $\mathcal{D}_s$, self-improvement can be written as:
+
+$$
+\mathcal{M}*{\theta'} \leftarrow \mathcal{F}(\mathcal{M}*\theta, \mathcal{D}_s)
+$$
+
+Existing approaches can be categorized according to what they use as $\mathcal{F}$ and $\mathcal{D}_s$.
+
+| Category                            | Improving Function                   | Source of Improvement                | Examples                                                                  |
+| ----------------------------------- | ------------------------------------ | ------------------------------------ | ------------------------------------------------------------------------- |
+| Test-Time Refinement                | Revising responses                   | The model’s own responses            | Self-Refine [1], Reflexion [2]                                            |
+| Harness, Skill, or Memory Evolution | Modifying the model’s scaffolding    | The model’s own responses            | Darwin Gödel Machine [3], ACE [4]                                         |
+| Self-Rewarding                      | Training with self-generated rewards | The model’s own responses            | TTRL [5], TTT-Discover [6], ReST-MCTS* [7], Self-Trained Verification [8] |
+| Self-Distillation                   | Training with a privileged teacher   | The model’s own responses            | OPSD [9], SDFT [10], SDPO [11]                                            |
+| Zero-Data Self-Play                 | SFT or RL training                   | Zero data                            | R-Zero [12], AZR [13]                                                     |
+| **Training on Self-Generated Data** | SFT or RL training                   | Seed tasks, corpora, or trajectories | CoT-Self-Instruct [14], SEAL [15], SPICE [16], SOAR [17]                  |
+
+Among these categories, we focus on **training on self-generated data**, particularly methods that use **trajectories as the source of improvement**.
+
+## 1.1 Why Is Zero-Data Self-Play Prone to Collapse?
+
+The appeal of zero-data self-play is clear: without additional human effort, a model can generate problems, solve them, and learn from the results. However, this loop can easily collapse [18, 19], typically for three reasons.
+
+First, there is **no grounded source**. If generated problems are not connected to real documents, environments, or interactions, greater difficulty does not necessarily imply greater value. Problems generated entirely within the model may appear complex while remaining unrelated to the situations that real agents will encounter.
+
+Second, **exploration can become closer to random generation than exploration for learning**. Creating a new problem and creating a problem that contains something worth learning are not the same. Increasing randomness or surface-level diversity alone does not necessarily produce reusable capabilities.
+
+Third, and most importantly, the **proposer is often optimized to generate problems that are moderately difficult for the solver**. In many approaches, the proposer is rewarded for generating problems whose solver pass rate is close to $0.5$. At that point, self-improvement is effectively reduced to finding problems of moderate difficulty. Yet the cheapest way to reduce the solver’s pass rate is not necessarily to create problems that require genuinely new capabilities. The proposer can instead slightly modify familiar content, paraphrase known problems, or add unnecessary traps. The resulting data may be difficult without being useful.
+
+Rather than continuously generating problems from nothing, we begin with experiences that already exist. This leads to our central question:
+
+> **How can we perform exploration for learning within a given trajectory?**
+
+## 1.2 Why Trajectories?
+
+Our chosen source of improvement, $\mathcal{D}_s$, is the agent’s trajectory. A trajectory may be produced by the current model, another model, or an earlier version of the same agent.
+
+The first reason for using trajectories is their **information density**. A single trajectory may contain the plan the agent created, the environment’s response, the recovery strategy selected after a failure, and the factors that ultimately determined success or failure. In conventional reinforcement learning, this long sequence of interactions is often compressed into a single final reward. However, even when two trajectories receive the same reward, the learning signals contained within them may be entirely different.
+
+Consider a document-retrieval agent that fails during an API call. From the final outcome alone, this appears to be a simple failure. The trajectory, however, may reveal several more specific learning opportunities: what constraints could have been inferred from the error message, what information should have been checked before calling the tool, which recovery action would have been most efficient, and what general rule could prevent similar errors when using other tools. A single failed trajectory can therefore generate multiple auxiliary tasks related to world modeling, error diagnosis, planning, and recovery.
+
+The second reason is the **future that self-improving systems are likely to face**. The data accumulated by future agents will probably resemble massive logs of agent–user and agent–environment interactions rather than carefully curated collections of seed tasks. The important challenge is therefore to transform those logs into useful training data instead of discarding them.
+
+# 2. STAGE: Turning Trajectories into Learning Signals
+
+We call our framework **STAGE: Self-improving via Trajectory-grounded Auxiliary tasks GEneration**. The name also reflects the idea that learning progresses through multiple stages.
+
+The framework consists of two main roles:
+
+* **Meta-Learner, or Proposer:** Decides what should be learned and generates the corresponding training data
+* **Learner, or Solver:** Learns from the data generated by the Meta-Learner
+
+```text
+Require:
+    Meta-Learner π_φ
+    Learner π_θ
+    Trajectory set 𝒯 = {τ_1, ..., τ_N}
+    Iterations I
+    Outer epochs K_outer
+    Inner epochs K_inner
+
+for t = 1 ... I:
+    # 1. Update the Meta-Learner: decide what to learn
+    for k = 1 ... K_outer:
+        𝒯_B ← SampleBatch(𝒯)
+        {(q_i, a_i, c_i)} ← π_φ(𝒯_B, learning_tools)
+        r_{m,i} ← Score(q_i, a_i, c_i, π_θ)
+        φ ← UpdateMetaLearner(φ, {r_{m,i}})
+
+    # 2. Generate training data
+    (Q, A, C) ← π_φ(𝒯, learning_tools)
+
+    # 3. Update the Learner
+    for k = 1 ... K_inner:
+        θ ← UpdateLearner(θ, Q, A)
+
+return π_φ, π_θ
+```
+
+The framework itself is not intended as a fundamentally new algorithm. Rather, it provides a minimal formulation for discussing trajectory-based self-improvement. The main question of this research is what kinds of data can support stable and continuous self-improvement, ultimately producing robust agents.
+
+## 2.1 What Constitutes “Good” Self-Improvement?
+
+Before discussing data selection, we first need to define successful self-improvement. We divide performance into three levels:
+
+* **Absorption on the training set:** How effectively does the model absorb new information from the training data?
+* **Consolidation on an in-distribution test set:** Can the model reliably apply what it has learned to new examples from the same distribution?
+* **Generalization on an out-of-distribution test set:** Does the improvement transfer to different distributions and environments?
+
+Many self-improvement studies evaluate progress using fixed in-distribution and out-of-distribution test sets. These evaluations are also necessary in our work, but a genuinely self-improving system should ultimately operate in a more open-ended environment. In an open-ended world, we cannot know in advance which tasks or environments will appear, nor can we predefine every future test set. Without a clearly specified final objective, what proxy goal should a self-improving system pursue? This question motivates both auxiliary tasks and learnable novelty.
+
+# 3. Our Philosophy: Auxiliary Tasks and Learnable Novelty
+
+> **Rather than directly optimizing for a single predefined objective, we should build a learning system in which new problems and new capabilities continue to emerge.**
+
+## 3.1 Auxiliary Tasks
+
+To build an agent that performs a particular objective well, it may seem sufficient to train it on action-generation tasks associated with that objective. Our perspective is different. A growing body of research suggests that auxiliary-task learning can improve internal representations, compositional data can strengthen generalization, and learning world models or self-reflection from trajectories can ultimately improve goal-directed behavior.
+
+Trajectories are rich sources of auxiliary tasks. A single interaction log may support questions such as: How did the environment respond after this observation? Why did this plan fail? What are the argument constraints of this tool? Which alternative action would have produced a better outcome? How should the agent recover from this type of failure?
+
+In STAGE, the types of auxiliary tasks generated by the Meta-Learner are controlled through a set of **learning tools**. These may include tools for prediction, diagnosis, counterfactual reasoning, tool-schema induction, and recovery planning.
+
+Our hypothesis is as follows:
+
+> Even when the same trajectories are used, decomposing their internal structure into multiple auxiliary tasks will produce stronger transfer to out-of-distribution environments than training the model to imitate only the final actions.
+
+We do not necessarily expect auxiliary-task training to produce dramatic improvements on in-distribution test sets compared with conventional methods. However, we hypothesize that it will lead to stronger performance in out-of-distribution settings. Even when this does not immediately translate into higher task performance, auxiliary-task training may still strengthen the model’s internal representations. We are therefore also considering how such representational improvements can be measured.
+
+## 3.2 Learnable Novelty
+
+Existing methods often measure the current learner’s pass rate and select problems whose pass rates are approximately $0.5$. The intuition is to avoid problems that are either too easy or completely unsolvable. This signal, however, has two major limitations.
+
+**The quality problem.** Difficulty is a one-dimensional signal. A target difficulty can be achieved using meaningless or low-diversity problems. Pass rate tells us whether a problem is **difficult**, but not whether it contains **useful structure that can be learned**.
+
+**The cost problem.** Estimating a stable pass rate requires multiple rollouts for every candidate problem. As the generation loop scales, this inference cost can dominate the overall computational budget.
+
+We therefore propose a criterion that combines **novelty** with the idea of the **Zone of Proximal Development**. The desired data is not merely something the current model does not know. It should provide meaningful information gain while remaining understandable when the model is given an appropriate clue, principle, or concept. In other words, the data should be both **novel**, meaning that it does not simply repeat what the model already knows, and **learnable**, meaning that it contains reusable structure rather than noise. We call this combination **learnable novelty**.
+
+# 4. Measuring Learnable Novelty
+
+## 4.1 Novelty: Surprisal
+
+The novelty component is relatively straightforward. Given a question $Q$, we measure how unexpected the answer $A$ is to the current learner:
+
+$$
+s_{\text{novelty}} = -\log p_\theta(A \mid Q)
+$$
+
+If the model already understands the relevant information, surprisal will be low; if the answer is unexpected, surprisal will be high. This measure also requires only a single forward pass, without additional rollouts. However, high surprisal alone does not imply valuable data. Data filled with noise, such as random sequences or incorrect labels, may also be highly surprising to the model. Surprisal captures novelty, but it does not guarantee learnability.
+
+## 4.2 Learnability: Distinguishing Structure from Noise
+
+The most intuitive way to evaluate learnability is to train the model on candidate data and then measure its validation performance. In practice, however, running a separate training loop for every candidate is prohibitively expensive. The result may also depend heavily on the learning rate, batch size, optimizer, number of training steps, and composition of the validation set. Useful data may be undervalued if it has not yet been sufficiently absorbed, while data that happens to benefit a particular validation set may be overvalued.
+
+The concept of **epiplexity** provides a useful lens. Epiplexity [20] focuses on the amount of structural information that a computationally and temporally bounded observer can actually extract from data. Unlike complexity measures that ignore the observer’s computational limitations, epiplexity centers on a practical question:
+
+> What can realistically be learned under limited computational conditions?
+
+From this perspective, the data we want is not merely complex or uncertain. It should contain structure that can be compressed into the model’s parameters and reused in new situations and out-of-distribution problems. The challenge is that epiplexity is itself revealed through a learning process. Although the concept closely matches what we seek, directly measuring it remains computationally expensive.
+
+## 4.3 Our Proxy: Privileged Information
+
+Our proposed alternative is to use **privileged information**. When the Meta-Learner creates a problem, it knows what the problem is intended to teach. We therefore require it to explicitly represent this intention—the central concept needed to solve the problem—as privileged information $C$.
+
+We then make the following assumption:
+
+> **A model that receives the core concept $C$ in context can be treated as an approximation of a model that has already internalized that concept.**
+
+Suppose the current model cannot predict $A$ when given only $Q$, but can predict $A$ accurately when $C$ is also provided. In that case, the problem is unlikely to be pure noise. Instead, it appears to contain structure that can be understood through an explicit and teachable concept.
+
+We define the learnability score as:
+
+$$
+s_{\text{learnability}} = \log p_\theta(A \mid Q, C)
+$$
+
+This approach has three main advantages. First, it is relatively independent of the training algorithm and its hyperparameters because it estimates whether the data contains something learnable without running a full training procedure. Existing approaches often evaluate post-training performance, inspect gradient directions, or use the area under a loss curve, all of which may depend on the training configuration as well as the model and data.
+
+Second, the method aligns the Meta-Learner’s intention with the learning outcome. To receive a high score, the Meta-Learner must express through $C$ what the generated problem is intended to teach, creating an explicit connection between problem generation and the learning objective.
+
+Third, it has relatively low computational cost. Instead of performing multiple rollouts to estimate a pass rate, or training on every candidate and measuring validation performance, we calculate conditional log-likelihoods. This advantage becomes increasingly important as the self-improvement loop scales.
+
+The final score combines novelty and learnability. We plan to experiment with several choices for the function $g$:
+
+$$
+S = g(s_{\text{novelty}}, s_{\text{learnability}})
+$$
+
+A simple initial choice is:
+
+$$
+g(a,b) = a + b
+$$
+
+Under this formulation, the score is proportional to:
+
+$$
+\log \frac{p_\theta(A \mid Q, C)}{p_\theta(A \mid Q)}
+$$
+
+The interpretation is straightforward:
+
+> **How much does the probability of the correct answer $A$ increase when the core concept $C$ is provided?**
+
+If the model already knows how to solve the problem, the difference before and after receiving $C$ will be small. If the label is incorrect or the problem is dominated by noise, providing $C$ will not sufficiently increase the probability of the answer. If the model cannot currently solve the problem but can solve it after receiving the core concept, the difference will be large.
+
+The third case is the region we seek: a region just beyond the model’s current capabilities, but still within reach of its existing learning capacity. In this sense, learnable novelty resembles Vygotsky’s **Zone of Proximal Development**.
+
+## 4.4 Is This Measurement Sufficient?
+
+Not yet. Several issues remain. First, the score may select cases in which both $p_\theta(A \mid Q, C)$ and $p_\theta(A \mid Q)$ are low, but their relative ratio is large. Some form of calibration or absolute-probability gating may therefore be necessary.
+
+Second, privileged information $C$ may reveal the answer directly rather than express the underlying concept. To prevent this, we are considering a gating mechanism based on the log-likelihood produced by a model that has genuinely internalized the privileged information.
+
+Third, understanding a concept in context is not identical to internalizing it through parameter updates. We must therefore test how strongly the proposed score correlates with actual improvements after training.
+
+# 5. What We Aim to Validate
+
+The purpose of this research is not merely to determine whether STAGE improves performance on a particular benchmark. We aim to investigate three broader questions:
+
+1. **How effective is self-improvement through auxiliary tasks?**
+2. **Can a self-improvement loop based on learnable novelty produce robust agents?**
+3. **Can the system avoid collapse over repeated rounds of training?**
+
+# Conclusion
+
+Today’s agents generate large amounts of experience through their interactions, yet most learning pipelines do not make full use of that experience. In reinforcement-learning pipelines, long trajectories are often compressed into a single final reward.
+
+We revisit trajectories from the perspective of self-improvement. A Meta-Learner creates **auxiliary tasks** from existing experiences, a Learner trains on those tasks, and the updated Learner influences the next round of data generation. However, simply constructing a loop does not guarantee meaningful self-improvement. Without a principled criterion for deciding what should be learned, the system may repeatedly generate easy problems, create difficult but meaningless tasks, or amplify its own biases.
+
+Moreover, our goal should extend beyond predictable future tasks. We need agents that can adapt effectively to new and out-of-distribution environments. For this reason, we place **learnable novelty** at the center of the framework. The objective is to identify data that is both new to the Learner and rich in learnable, reusable structure.
+
+Many questions remain unresolved. We must empirically determine how well privileged context approximates actual parameter updates, whether auxiliary-task training improves action generation and out-of-distribution generalization, and how collapse can be prevented during repeated cycles of self-improvement.
+
+We believe that one of the defining capabilities of a self-improving system is the ability to determine **what it should learn next**. This is the direction in which we intend to continue our research.
+
+### References
+[1] Madaan et al. "[Self-Refine: Iterative Refinement with Self-Feedback](https://arxiv.org/abs/2303.17651)" 2023
+
+[2] Shinn et al. "[Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366)" 2023
+
+[3] Zhang et al. "[Darwin Gödel Machine: Open-Ended Evolution of Self-Improving Agents](https://arxiv.org/abs/2505.22954)" 2025
+
+[4] Zhang et al. "[Agentic Context Engineering: Evolving Contexts for Self-Improving Language Models](https://arxiv.org/abs/2510.04618)" 2025
+
+[5] Zuo et al. "[TTRL: Test-Time Reinforcement Learning](https://arxiv.org/abs/2504.16084)" 2025
+
+[6] Yuksekgonul et al. "[Learning to Discover at Test Time](https://arxiv.org/abs/2601.16175)" 2026
+
+[7] Zhang et al. "[ReST-MCTS*: LLM Self-Training via Process Reward Guided Tree Search](https://arxiv.org/abs/2406.03816)" 2024
+
+[8] Wu et al. "[Self-Trained Verification for Training- and Test-Time Self-Improvement](https://arxiv.org/abs/2605.30290)" 2026
+
+[9] Zhao et al. "[Self-Distilled Reasoner: On-Policy Self-Distillation for Large Language Models](https://arxiv.org/abs/2601.18734)" 2026
+
+[10] Shenfeld et al. "[Self-Distillation Enables Continual Learning](https://arxiv.org/abs/2601.19897)" 2026
+
+[11] Hübotter et al. "[Reinforcement Learning via Self-Distillation](https://arxiv.org/abs/2601.20802)" 2026
+
+[12] Huang et al. "[R-Zero: Self-Evolving Reasoning LLM from Zero Data](https://arxiv.org/abs/2508.05004)" 2025
+
+[13] Zhao et al. "[Absolute Zero: Reinforced Self-play Reasoning with Zero Data](https://arxiv.org/abs/2505.03335)" 2025
+
+[14] Yu et al. "[CoT-Self-Instruct: Building High-Quality Synthetic Prompts for Reasoning and Non-Reasoning Tasks](https://arxiv.org/abs/2507.23751)" 2025
+
+[15] Zweiger et al. "[Self-Adapting Language Models](https://arxiv.org/abs/2506.10943)" 2025
+
+[16] Liu et al. "[SPICE: Self-Play In Corpus Environments Improves Reasoning](https://arxiv.org/abs/2510.24684)" 2025
+
+[17] Sundaram et al. "[Teaching Models to Teach Themselves: Reasoning at the Edge of Learnability](https://arxiv.org/abs/2601.18778)" 2026
+
+[18] Bailey et al. "[Scaling Self-Play with Self-Guidance](https://arxiv.org/abs/2604.20209)" 2026
+
+[19] Pu et al. "[Survive or Collapse: The Asymmetric Roles of Data Gating and Reward Grounding in Self-Play RL](https://arxiv.org/abs/2605.22217)" 2026
+
+[20] Finzi et al. "[From Entropy to Epiplexity: Rethinking Information for Computationally Bounded Intelligence](https://arxiv.org/abs/2601.03220)" 2026
 
 </section>
 
@@ -46,9 +317,8 @@ $\mathcal{F}$와 $\mathcal{D}_s$에 무엇을 넣느냐에 따라 기존 연구�
 | 유형 | Improving function | Source | 예시 |
 | --- | --- | --- | --- |
 | Test-time Refine | 응답 수정 | 자기 응답 | Self-Refine [1], Reflexion [2] |
-| Harness/Skill/Memory Evolution | 스캐폴딩 수정 | Zero-data | Darwin Gödel Machine [3], ACE [4] |
-| Test-time Training | SFT/RL 학습 | 자기 응답 | TTRL [5], TTT-Discover [6] |
-| Self-Rewarding | 자체 reward로 학습 | 자기 응답 | ReST-MCTS* [7], Self-Trained Verification [8] |
+| Harness/Skill/Memory Evolution | 스캐폴딩 수정 | 자기 응답 | Darwin Gödel Machine [3], ACE [4] |
+| Self-Rewarding | 자체 reward로 학습 | 자기 응답 | TTRL [5], TTT-Discover [6], ReST-MCTS* [7], Self-Trained Verification [8] |
 | Self-Distillation | Privileged teacher로 학습 | 자기 응답 | OPSD [9], SDFT [10], SDPO [11] |
 | Self-play with zero data | SFT/RL 학습 | Zero-data | R-Zero [12], AZR [13] |
 | **Training on self-generated data** | SFT/RL 학습 | Seed task, corpus, trajectory | CoT-Self-Instruct [14], SEAL [15], SPICE [16], SOAR [17] |
