@@ -34,7 +34,7 @@ This article develops two main ideas:
 Recent studies pursuing very different research directions have all been described as forms of “self-improvement.” To compare them clearly, we first need a simple formulation. Given a current model $\mathcal{M}_\theta$, an improving function $\mathcal{F}$, and a source of improvement $\mathcal{D}_s$, self-improvement can be written as:
 
 $$
-\mathcal{M}*{\theta'} \leftarrow \mathcal{F}(\mathcal{M}*\theta, \mathcal{D}_s)
+\mathcal{M}_{\theta'} \leftarrow \mathcal{F}(\mathcal{M}_\theta, \mathcal{D}_s)
 $$
 
 Existing approaches can be categorized according to what they use as $\mathcal{F}$ and $\mathcal{D}_s$.
