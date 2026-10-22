@@ -1,3 +1,29 @@
+- title: "Towards Direct Evaluation of Harness Optimizers via Priority Ranking"
+  authors:
+    - "Kai Tzu-iunn Ong"
+    - "Minseok Kang"
+    - "Dongwook Choi"
+    - "Junhee Cho"
+    - "Seungju Kim"
+    - "Seungwon Lim"
+    - "Geunha Jang"
+    - "Minwoo Oh"
+    - "Bogyung Jeong"
+    - "Sunghwan Kim"
+    - "Taeyoon Kwon"
+    - "Jinyoung Yeo"
+  equal_contribution: []
+  venue: "NeurIPS 2026"
+  status: ""
+  award_name: ""
+  paper_url: "https://arxiv.org/abs/2605.22505"
+  website_url: ""
+  code_url: ""
+  dataset_url: ""
+  others: []
+  selected: false
+  year: 2026
+
 - title: "On Training Large Language Models for Long-Horizon Tasks: An Empirical Study of Horizon Length"
   authors:
     - "Sunghwan Kim"
